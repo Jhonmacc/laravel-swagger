@@ -1,0 +1,268 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Funcionários",
+        "description": "Documentação da API de CRUD de Funcionários.",
+        "contact": {
+            "email": "seu-email@exemplo.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Servidor local de desenvolvimento"
+        },
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/api/funcionarios": {
+            "get": {
+                "tags": [
+                    "Funcionários"
+                ],
+                "summary": "Listar todos os funcionários",
+                "operationId": "ea699d46fc67c0fbfd4a5b47e692c7bd",
+                "responses": {
+                    "200": {
+                        "description": "Lista de funcionários",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Funcionario"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Funcionários"
+                ],
+                "summary": "Cria um novo funcionário",
+                "operationId": "1243a4b3afb8f96b38e6d64d1830072e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "joao@exemplo.com"
+                                    },
+                                    "cargo": {
+                                        "type": "string",
+                                        "example": "Gerente"
+                                    },
+                                    "salario": {
+                                        "type": "number",
+                                        "example": 4500.5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Funcionário criado com sucesso."
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        },
+        "/api/funcionarios/{id}": {
+            "get": {
+                "tags": [
+                    "Funcionários"
+                ],
+                "summary": "Exibe detalhes de um funcionário específico",
+                "operationId": "37d4fbf9d87bd6edf167e2014fbdcccc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do funcionário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do funcionário retornados com sucesso."
+                    },
+                    "404": {
+                        "description": "Funcionário não encontrado."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Funcionários"
+                ],
+                "summary": "Atualiza um funcionário existente",
+                "operationId": "17580cb3a737bc910791d404d88e85de",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do funcionário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "João Silva"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "joao@exemplo.com"
+                                    },
+                                    "cargo": {
+                                        "type": "string",
+                                        "example": "Gerente"
+                                    },
+                                    "salario": {
+                                        "type": "number",
+                                        "example": 4500.5
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Funcionário atualizado com sucesso."
+                    },
+                    "404": {
+                        "description": "Funcionário não encontrado."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Funcionários"
+                ],
+                "summary": "Remove um funcionário",
+                "operationId": "68308abb641f5b9baadbbca03fbb39d9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do funcionário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Funcionário excluído com sucesso."
+                    },
+                    "404": {
+                        "description": "Funcionário não encontrado."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Funcionario": {
+                "title": "Funcionário",
+                "required": [
+                    "nome",
+                    "email",
+                    "cargo",
+                    "salario"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nome": {
+                        "type": "string",
+                        "example": "João Silva"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "joao@exemplo.com"
+                    },
+                    "cargo": {
+                        "type": "string",
+                        "example": "Gerente"
+                    },
+                    "salario": {
+                        "type": "number",
+                        "example": 4500.5
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "Autenticação via Bearer Token",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Funcionários",
+            "description": "**Endpoints Relacionados ao Gerenciamento de Funcionários**"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
+}
